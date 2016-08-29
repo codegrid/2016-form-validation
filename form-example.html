@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>フォーム</title>
+<style>
+.title {
+  width: 70%;
+  margin: 10% auto 5%;
+  text-align: center;
+}
+.form {
+  width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #eee;
+  font-size: 20px;
+}
+.form_row {
+  display: block;
+  margin-bottom: 20px;
+}
+.form_row_c1 {
+  margin: 0 0 5px;
+}
+.form_row_c2 {
+}
+
+.form_row_c2 input,
+.form_row_c2 textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: inherit;
+  padding-left: 10px;
+  border: none;
+}
+.form_row_c2 input {
+  height: 40px;
+}
+.form_row_c2 textarea {
+  height: 80px;
+}
+.form_row_note {
+  margin-top: 5px;
+  font-size: 14px;
+  color: red;
+  line-height: 16px;
+}
+.form_trigger {
+  text-align: center;
+  border-top: 1px dotted #ccc;
+  padding-top: 10px;
+}
+
+.form_trigger button {
+  height: 40px;
+  font-size: inherit;
+}
+.form_trigger button[type=submit] {
+  margin-right: 20px;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+.form_trigger button[type=submit]:disabled {
+  opacity: .5;
+}
+</style>
+</head>
+<body>
+
+<h2 class="title">@leader22との面談フォーム</h2>
+<form class="form" method="post" novalidate>
+  <label class="form_row">
+    <h3 class="form_row_c1">Twitterアカウント</h3>
+    <div class="form_row_c2">
+      <input type="text" name="usertwit" pattern="@\w{1,20}" placeholder="@soto3" required>
+      <div class="form_row_note js-note-usertwit"></div>
+    </div>
+  </label>
+  <label class="form_row">
+    <h4 class="form_row_c1">メールアドレス</h4>
+    <div class="form_row_c2">
+      <input type="email" name="usermail" placeholder="soto3@example.com">
+      <div class="form_row_note js-note-usermail"></div>
+    </div>
+  </label>
+  <label class="form_row">
+    <h3 class="form_row_c1">指定日</h3>
+    <div class="form_row_c2">
+      <input type="date" name="userdate" min="2016-08-01" max="2016-10-01" required>
+      <div class="form_row_note js-note-userdate"></div>
+    </div>
+  </label>
+  <label class="form_row">
+    <h3 class="form_row_c1">コメント</h3>
+    <div class="form_row_c2">
+      <textarea name="usermsg" maxlength="30" placeholder="コメントは30文字まで"></textarea>
+      <div class="form_row_note js-note-usermsg"></div>
+    </div>
+  </label>
+  <div class="form_trigger">
+    <button type="submit" name="submitBtn">送信</button>
+    <button type="reset">リセット</button>
+  </div>
+</form>
+
+<script>
+(function(global) {
+  'use strict';
+  var doc = global.document;
+
+  var formEl = doc.forms[0];
+
+  check();
+  function check() {
+    [].forEach.call(formEl.elements, function(el) {
+      if (el.tagName.toLowerCase() === 'button') { return; }
+      var dest = doc.getElementsByClassName('js-note-' + el.name)[0];
+
+      if (el.name === 'usertwit') {
+        el.setCustomValidity(el.value === '@leader22' ?  '自分自身を指定することはできません。' : '');
+      }
+
+      var note = el.checkValidity() ? '' : el.validationMessage;
+      dest && (dest.textContent = note);
+    });
+
+    formEl.submitBtn.disabled = !formEl.checkValidity();
+
+    global.setTimeout(check, 16);
+  }
+
+
+}(this));
+</script>
+</body>
+</html>
+

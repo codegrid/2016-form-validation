@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>特定のtype属性によるバリデーション</title>
+</head>
+<body>
+
+<h2>email</h2>
+<form method="post">
+  <input type="email">
+  <input type="submit" value="送信">
+</form>
+
+<h2>url</h2>
+<form method="post">
+  <input type="url">
+  <input type="submit" value="送信">
+</form>
+
+<h2>number w/ min|max</h2>
+<form method="post">
+  <input type="number" min="1" max="10">
+  <input type="submit" value="送信">
+</form>
+
+<h2>date w/ max</h2>
+<form method="post">
+  <input type="date" max="1999-12-31">
+  <input type="submit" value="送信">
+</form>
+
+
+<h2>time w/ min|max</h2>
+<form method="post">
+  <input type="time" min="12:00" max="23:59">
+  <input type="submit" value="送信">
+</form>
+
+
+</body>
+</html>
